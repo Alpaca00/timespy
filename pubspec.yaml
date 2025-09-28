@@ -1,0 +1,37 @@
+name: time_spy
+description: "A new Flutter project."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.5.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+  app_usage: ^4.0.1
+  permission_handler: ^11.0.0
+  flame_splash_screen: ^0.3.1+2
+  package_info_plus: ^9.0.0
+  glassmorphism: ^2.0.1
+  flutter_launcher_icons: ^0.14.4
+  cupertino_icons: ^1.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  change_app_package_name: ^1.5.0
+
+flutter:
+  uses-material-design: true
+  fonts:
+    - family: Saira
+      fonts:
+        - asset: assets/fonts/Saira.ttf
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon.png"
