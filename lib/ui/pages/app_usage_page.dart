@@ -86,17 +86,20 @@ class _AppUsagePageState extends State<AppUsagePage> {
   }
 
   Future<void> _fetchUsageStats() async {
-    // Check permission
     if (!await UsagePermission.isUsagePermissionGranted()) {
+      if (!mounted) return;
+
       final confirmed = await _showUsagePermissionDialog(context);
       if (confirmed) {
-        // Wait a moment before rechecking
+        await UsagePermission.openUsageSettings();
+
         await Future.delayed(const Duration(seconds: 2));
+
         if (!await UsagePermission.isUsagePermissionGranted()) {
-          return; // Still no permission
+          return;
         }
       } else {
-        return; // User dismissed the dialog
+        return;
       }
     }
 

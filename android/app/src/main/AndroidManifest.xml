@@ -1,14 +1,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
     <!-- Права доступа -->
     <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" tools:ignore="ProtectedPermissions"/>
 
     <application
         android:label="time_spy"
         android:icon="@mipmap/ic_launcher"
+        android:theme="@style/LaunchTheme"
         android:usesCleartextTraffic="true">
-
         <!-- Поддержка старого HTTP-клиента -->
         <uses-library
             android:name="org.apache.http.legacy"
