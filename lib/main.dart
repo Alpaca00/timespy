@@ -3,9 +3,9 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:app_usage/app_usage.dart';
 import 'package:flutter/services.dart';
+import 'package:time_spy/core/platform/usage_permission.dart';
 
-import 'glass_card_widget.dart';
-import 'native_service.dart';
+import 'ui/widgets/glass_card_widget.dart';
 
 void main() {
   runApp(const MyApp());
@@ -90,10 +90,120 @@ class _AppUsagePageState extends State<AppUsagePage> {
     }
   }
 
-  Future<void> _fetchUsageStats() async {
-    if (!await UsagePermission.isUsagePermissionGranted()) {
+  Future<bool> _showUsagePermissionDialog(BuildContext context) async {
+    final result = await showDialog<bool>(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return Dialog(
+          backgroundColor: Colors.white.withOpacity(0.05),
+          insetPadding: const EdgeInsets.symmetric(horizontal: 24),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+          child: Container(
+            padding: const EdgeInsets.all(24),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(24),
+              gradient: LinearGradient(
+                colors: [
+                  Colors.white.withOpacity(0.08),
+                  Colors.white.withOpacity(0.02),
+                ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              border: Border.all(color: Colors.white.withOpacity(0.1)),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(Icons.privacy_tip_rounded, size: 56, color: Colors.cyanAccent.withOpacity(0.85)),
+                const SizedBox(height: 20),
+                const Text(
+                  'Usage Permission Required',
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 1.1,
+                    color: Colors.white,
+                    fontFamily: 'Saira',
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 14),
+                const Text(
+                  "TimeSpy needs access to your device's usage stats to show how long and how often apps are used.\n\nThis permission is used locally and never leaves your device.",
+                  style: TextStyle(
+                    color: Colors.white70,
+                    fontSize: 16,
+                    fontFamily: 'Saira',
+                    height: 1.5,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 26),
+                Row(
+                  children: [
+                    Expanded(
+                      child: OutlinedButton(
+                        onPressed: () => Navigator.of(context).pop(false),
+                        style: OutlinedButton.styleFrom(
+                          side: BorderSide(color: Colors.white.withOpacity(0.3)),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                        ),
+                        child: const Text(
+                          'Cancel',
+                          style: TextStyle(color: Colors.white70, fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: ElevatedButton.icon(
+                        onPressed: () async {
+                          Navigator.of(context).pop(true);
+                        },
+                        icon: const Icon(Icons.open_in_new, color: Colors.black),
+                        label: const Text(
+                          'Open Settings',
+                          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.cyanAccent,
+                          padding: const EdgeInsets.symmetric(vertical: 14),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+
+    if (result == true) {
       await UsagePermission.openUsageSettings();
-      return;
+      return true;
+    }
+
+    return false;
+  }
+
+  Future<void> _fetchUsageStats() async {
+    // Check permission
+    if (!await UsagePermission.isUsagePermissionGranted()) {
+      final confirmed = await _showUsagePermissionDialog(context);
+      if (confirmed) {
+        // Wait a moment before rechecking
+        await Future.delayed(const Duration(seconds: 2));
+        if (!await UsagePermission.isUsagePermissionGranted()) {
+          return; // Still no permission
+        }
+      } else {
+        return; // User dismissed the dialog
+      }
     }
 
     final end = DateTime.now();
@@ -152,6 +262,12 @@ class _AppUsagePageState extends State<AppUsagePage> {
     setState(() => _usageStatsExt = combined);
   }
 
+
+  String _formatDateTime(DateTime dateTime) {
+    return '${dateTime.hour.toString().padLeft(2, '0')}:${dateTime.minute.toString().padLeft(2, '0')} '
+        '${dateTime.day.toString().padLeft(2, '0')}.${dateTime.month.toString().padLeft(2, '0')}';
+  }
+
   String _formatDuration(Duration duration) {
     final h = duration.inHours;
     final m = duration.inMinutes.remainder(60);
@@ -168,10 +284,6 @@ class _AppUsagePageState extends State<AppUsagePage> {
     }
   }
 
-  String _formatDateTime(DateTime dateTime) {
-    return '${dateTime.hour.toString().padLeft(2, '0')}:${dateTime.minute.toString().padLeft(2, '0')} '
-        '${dateTime.day.toString().padLeft(2, '0')}.${dateTime.month.toString().padLeft(2, '0')}';
-  }
 
   Widget _infoRow(String label, String value) {
     return Padding(
