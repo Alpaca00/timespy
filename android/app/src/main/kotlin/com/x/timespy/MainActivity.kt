@@ -143,7 +143,7 @@ class MainActivity : FlutterActivity() {
     @RequiresApi(Build.VERSION_CODES.Q)
     private fun getLaunchCount(packageName: String, usageStatsManager: UsageStatsManager): Int {
         val now = System.currentTimeMillis()
-        val start = now - 1000L * 60 * 60 * 24 * 2
+        val start = now - 1000L * 60 * 60 * 24 * 14
 
         val statsMap = usageStatsManager.queryAndAggregateUsageStats(start, now)
         val usageStats = statsMap[packageName] ?: return 0

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class InfoRow extends StatelessWidget {
+class InfoRowWidget extends StatelessWidget {
   final String label;
   final String value;
 
-  const InfoRow({
+  const InfoRowWidget({
     super.key,
     required this.label,
     required this.value,

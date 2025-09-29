@@ -15,6 +15,9 @@ dependencies:
   package_info_plus: ^9.0.0
   glassmorphism: ^2.0.1
   flutter_launcher_icons: ^0.14.4
+  flutter_bloc: ^9.1.1
+  lottie: ^3.3.2
+  shared_preferences: ^2.5.3
   cupertino_icons: ^1.0.8
 
 dev_dependencies:
@@ -29,6 +32,8 @@ flutter:
     - family: Saira
       fonts:
         - asset: assets/fonts/Saira.ttf
+  assets:
+    - assets/lottie/spy.json
 
 flutter_icons:
   android: true

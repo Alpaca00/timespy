@@ -6,7 +6,6 @@
     <application
         android:label="time_spy"
         android:icon="@mipmap/ic_launcher"
-        android:theme="@style/LaunchTheme"
         android:usesCleartextTraffic="true">
         <!-- Поддержка старого HTTP-клиента -->
         <uses-library
@@ -51,8 +50,38 @@
         </intent>
     </queries>
     <queries>
+        <!-- Світові популярні додатки -->
         <package android:name="com.android.chrome"/>
         <package android:name="com.google.android.youtube"/>
-        <!-- інші пакети, які ти хочеш "бачити" -->
+        <package android:name="com.facebook.katana"/>
+        <package android:name="com.whatsapp"/>
+        <package android:name="com.instagram.android"/>
+        <package android:name="com.snapchat.android"/>
+        <package android:name="com.twitter.android"/>
+        <package android:name="com.spotify.music"/>
+        <package android:name="com.netflix.mediaclient"/>
+        <package android:name="com.telegram.android"/>
+
+        <!-- Популярні українські додатки -->
+        <package android:name="ua.gov.diia.app"/> <!-- Дія -->
+        <package android:name="ua.netology.android.potoki"/> <!-- Приклад -->
+        <package android:name="ua.oschadbank.mobilebank"/> <!-- Ощадбанк -->
+        <package android:name="ua.privatbank.ibank"/> <!-- Приват24 -->
+        <package android:name="ua.ukrposhta.app"/> <!-- Укрпошта -->
+        <package android:name="ua.monobank.app"/> <!-- Монобанк -->
+        <package android:name="com.budmo.apps.budmo"/> <!-- Budmo -->
+        <package android:name="ua.fonbet.android.fonbet"/> <!-- Фонбет -->
+
+        <!-- Популярні польські додатки -->
+        <package android:name="pl.wfirma.mobile"/> <!-- wfirma -->
+        <package android:name="pl.payu.android"/> <!-- PayU -->
+        <package android:name="pl.orange.rn"/> <!-- Orange Polska -->
+        <package android:name="pl.allegro.android"/> <!-- Allegro -->
+        <package android:name="pl.mbank.mobile.android"/> <!-- mBank -->
+        <package android:name="pl.ing.mobile"/> <!-- ING Bank -->
+        <package android:name="pl.citibank.online.android"/> <!-- Citi Handlowy -->
+        <package android:name="pl.wp.tv"/> <!-- WP TV -->
+
     </queries>
+
 </manifest>

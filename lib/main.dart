@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:time_spy/ui/pages/app_usage_page.dart' show AppUsagePage;
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:time_spy/ui/pages/splash_page.dart';
 
+import 'ui/cubit/activity_cubit.dart';
+
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider<ActivityCubit>(
+          create: (_) => ActivityCubit()..init(),
+        ),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'app_usage_page.dart';
+import 'package:time_spy/ui/pages/activity_page.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -31,7 +31,7 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
 
     Timer(const Duration(seconds: 3), () {
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => const AppUsagePage()),
+        MaterialPageRoute(builder: (_) => const ActivityPage()),
       );
     });
   }
@@ -48,11 +48,11 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
       backgroundColor: Colors.black,
       body: FadeTransition(
         opacity: _fadeInAnimation,
-        child: Center(
+        child: const Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text(
+              Text(
                 'Time Spy',
                 style: TextStyle(
                   fontSize: 32,
@@ -62,9 +62,9 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
                   fontFamily: 'Saira',
                 ),
               ),
-              const SizedBox(height: 12),
-              const Text(
-                'Loading your app usage data...',
+              SizedBox(height: 12),
+              Text(
+                'Analyzing your app activity...',
                 style: TextStyle(
                   fontSize: 16,
                   color: Colors.white70,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:time_spy/core/platform/usage_permission.dart';
 
 class UsagePermissionDialog extends StatelessWidget {
   const UsagePermissionDialog({super.key});
@@ -6,7 +7,7 @@ class UsagePermissionDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      backgroundColor: Colors.black.withOpacity(0.48),
+      backgroundColor: Colors.black,
       insetPadding: const EdgeInsets.symmetric(horizontal: 24),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
       child: Container(
@@ -57,6 +58,7 @@ class UsagePermissionDialog extends StatelessWidget {
                   child: OutlinedButton(
                     onPressed: () => Navigator.of(context).pop(false),
                     style: OutlinedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 14),
                       side: BorderSide(color: Colors.white.withOpacity(0.3)),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                     ),
@@ -68,22 +70,31 @@ class UsagePermissionDialog extends StatelessWidget {
                 ),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: ElevatedButton.icon(
-                    onPressed: () => Navigator.of(context).pop(true),
-                    icon: const Icon(Icons.open_in_new, color: Colors.black),
-                    label: const Text(
-                      'Open Settings',
-                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-                    ),
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      await UsagePermission.openUsageSettings();
+                      Navigator.of(context).pop(true);
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.cyanAccent,
                       padding: const EdgeInsets.symmetric(vertical: 14),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                     ),
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.open_in_new, color: Colors.black, size: 20),
+                        SizedBox(width: 8),
+                        Text(
+                          'Open Settings',
+                          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
-            ),
+            )
           ],
         ),
       ),

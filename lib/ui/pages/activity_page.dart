@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:time_spy/core/platform/usage_permission.dart';
 import 'package:time_spy/core/utils/formatters.dart';
 import 'package:time_spy/ui/widgets/activity_section.dart';
@@ -26,9 +27,12 @@ class _ActivityPageState extends State<ActivityPage>
   bool _showPermissionButton = false;
   late ActivityCubit _activityCubit;
 
+  int _daysFilter = 7;
+
   @override
   void initState() {
     super.initState();
+    _loadDaysFilter();
     WidgetsBinding.instance.addObserver(this);
     _activityCubit = context.read<ActivityCubit>();
     _activityCubit.init();
@@ -46,6 +50,19 @@ class _ActivityPageState extends State<ActivityPage>
     if (state == AppLifecycleState.resumed) {
       _checkPermissionAndRefresh();
     }
+  }
+
+  Future<void> _loadDaysFilter() async {
+    final prefs = await SharedPreferences.getInstance();
+    final savedValue = prefs.getInt('days_filter') ?? 7;
+    setState(() {
+      _daysFilter = savedValue;
+    });
+  }
+
+  Future<void> _saveDaysFilter(int value) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('days_filter', value);
   }
 
   Future<void> _checkPermissionAndRefresh() async {
@@ -120,7 +137,7 @@ class _ActivityPageState extends State<ActivityPage>
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.cyanAccent,
+                    backgroundColor: const Color(0xFF4D9DE0),
                     padding: const EdgeInsets.symmetric(
                         horizontal: 24, vertical: 16),
                     shape: RoundedRectangleBorder(
@@ -162,7 +179,7 @@ class _ActivityPageState extends State<ActivityPage>
 
           if (state is ActivityLoaded) {
             final now = DateTime.now();
-            final activeThreshold = now.subtract(const Duration(hours: 12));
+            final activeThreshold = now.subtract(Duration(days: _daysFilter));
 
             final usageStatsExt = state.apps;
 
@@ -188,11 +205,12 @@ class _ActivityPageState extends State<ActivityPage>
 
             return RefreshIndicator(
               backgroundColor: Colors.transparent,
-              color: const Color(0xFF74F2CE),
+              color: const Color(0xFF4D9DE0),
               onRefresh: () async {
                 context.read<ActivityCubit>().init();
               },
               child: ListView(
+                padding: const EdgeInsets.symmetric(vertical: 12),
                 children: [
                   ActivitySearchBar(
                     controller: _searchController,
@@ -204,6 +222,38 @@ class _ActivityPageState extends State<ActivityPage>
                       setState(() => _searchQuery = '');
                     },
                     query: _searchQuery,
+                  ),
+                  const SizedBox(height: 12),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Filter by last activity (days): $_daysFilter',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 14,
+                          ),
+                        ),
+                        Slider(
+                          value: _daysFilter.toDouble(),
+                          min: 1,
+                          max: 14,
+                          divisions: 13,
+                          label: '$_daysFilter days',
+                          activeColor: const Color(0xFF4D9DE0),
+                          inactiveColor: Colors.white24,
+                          onChanged: (double value) {
+                            setState(() {
+                              _daysFilter = value.round();
+                            });
+                            _saveDaysFilter(_daysFilter);
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                   if (activeApps.isNotEmpty)
                     ActivitySection(
