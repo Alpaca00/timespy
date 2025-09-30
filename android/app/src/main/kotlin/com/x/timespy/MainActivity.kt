@@ -112,14 +112,14 @@ class MainActivity : FlutterActivity() {
         val now = System.currentTimeMillis()
         val events = usageStatsManager.queryEvents(sinceMillis, now)
         val packageToLastForeground = mutableMapOf<String, Long>()
-        val ev = UsageEvents.Event()
+        val usageEvent = UsageEvents.Event()
 
         while (events.hasNextEvent()) {
-            events.getNextEvent(ev)
-            val pkg = ev.packageName
-            val type = ev.eventType
+            events.getNextEvent(usageEvent)
+            val pkg = usageEvent.packageName
+            val type = usageEvent.eventType
             if (type == UsageEvents.Event.MOVE_TO_FOREGROUND || type == UsageEvents.Event.ACTIVITY_RESUMED) {
-                packageToLastForeground[pkg] = ev.timeStamp
+                packageToLastForeground[pkg] = usageEvent.timeStamp
             }
         }
 
@@ -128,10 +128,10 @@ class MainActivity : FlutterActivity() {
 
     private fun getAppCategory(packageName: String): String {
         return try {
-            val ai = packageManager.getApplicationInfo(packageName, 0)
+            val appInfo = packageManager.getApplicationInfo(packageName, 0)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                val cat = ApplicationInfo.getCategoryTitle(this, ai.category)?.toString() ?: "Other"
-                cat
+                val category = ApplicationInfo.getCategoryTitle(this, appInfo.category)?.toString() ?: "Other"
+                category
             } else {
                 "Other"
             }
@@ -149,9 +149,9 @@ class MainActivity : FlutterActivity() {
         val usageStats = statsMap[packageName] ?: return 0
 
         try {
-            val field = usageStats.javaClass.getDeclaredField("mAppLaunchCount")
-            field.isAccessible = true
-            val count = field.getInt(usageStats)
+            val mAppLaunchCount = usageStats.javaClass.getDeclaredField("mAppLaunchCount")
+            mAppLaunchCount.isAccessible = true
+            val count = mAppLaunchCount.getInt(usageStats)
             if (count >= 0) {
                 return count          }
         } catch (e: NoSuchFieldException) {
@@ -161,9 +161,9 @@ class MainActivity : FlutterActivity() {
         }
 
         try {
-            val field2 = usageStats.javaClass.getDeclaredField("mLaunchCount")
-            field2.isAccessible = true
-            val count2 = field2.getInt(usageStats)
+            val mLaunchCount = usageStats.javaClass.getDeclaredField("mLaunchCount")
+            mLaunchCount.isAccessible = true
+            val count2 = mLaunchCount.getInt(usageStats)
             if (count2 >= 0) {
                 return count2
             }
@@ -175,8 +175,8 @@ class MainActivity : FlutterActivity() {
 
     private fun getAppIcon(packageName: String): ByteArray? {
         return try {
-            val drawable = packageManager.getApplicationIcon(packageName)
-            drawableToBytes(drawable)
+            val applicationIcon = packageManager.getApplicationIcon(packageName)
+            drawableToBytes(applicationIcon)
         } catch (e: Exception) {
             null
         }
