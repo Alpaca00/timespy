@@ -29,7 +29,7 @@ TimeSpy **does not send any data to the internet**.
 All processing happens **locally on your device**.
 
 The app uses standard Android APIs:
-- `PACKAGE_USAGE_STATS` — for collecting usage history
+- `PACKAGE_USAGE_STATS` - for collecting usage history
 - Native Kotlin integration via Flutter MethodChannel
 
 ---
@@ -46,9 +46,9 @@ Or tap the in-app button to be redirected.
 
 ---
 
-### Download
+### Download 
 
-#### [F-Droid Repository](https://Alpaca00.github.io/timespy-fdroid-repo/)
+The official release build, signed and ready for use
 
 1. Open **F-Droid**
 2. Go to:
@@ -70,4 +70,4 @@ Or tap the in-app button to be redirected.
 
 ```bash
 flutter pub get
-flutter build apk --release
+flutter build apk --debug
