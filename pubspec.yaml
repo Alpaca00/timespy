@@ -1,5 +1,5 @@
 name: time_spy
-description: "A new Flutter project."
+description: "Android app that helps you monitor which apps you use, how often and for how long."
 publish_to: 'none'
 
 version: 1.0.0+1

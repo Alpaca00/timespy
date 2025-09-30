@@ -153,8 +153,7 @@ class MainActivity : FlutterActivity() {
             field.isAccessible = true
             val count = field.getInt(usageStats)
             if (count >= 0) {
-                return count
-            }
+                return count          }
         } catch (e: NoSuchFieldException) {
             android.util.Log.w("TimeSpy", "Field mAppLaunchCount not found for $packageName")
         } catch (e: Exception) {
@@ -173,7 +172,6 @@ class MainActivity : FlutterActivity() {
         }
         return 0
     }
-
 
     private fun getAppIcon(packageName: String): ByteArray? {
         return try {

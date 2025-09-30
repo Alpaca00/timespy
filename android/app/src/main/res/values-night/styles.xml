@@ -1,20 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- styles.xml -->
 <resources>
-    <style name="LaunchTheme" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Чорний фон -->
-        <item name="android:windowBackground">@android:color/black</item>
-
-        <!-- ВИМКНЕННЯ splash-іконки (тільки Android 12+) -->
-        <item name="windowSplashScreenAnimatedIcon">@null</item>
-        <item name="windowSplashScreenIconBackgroundColor">@null</item>
-
-        <!-- Вкажи, яка тема буде після splash -->
-        <item name="postSplashScreenTheme">@style/NormalTheme</item>
+    <style name="LaunchTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/launch_background</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
     </style>
-
-    <style name="NormalTheme" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="android:windowBackground">@android:color/black</item>
+    <style name="NormalTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
     </style>
 </resources>
-
