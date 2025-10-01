@@ -1,0 +1,4 @@
+TimeSpy helps you monitor which apps you use, how often and for how long.
+It runs in the background and provides usage statistics to help you understand your digital habits.
+
+Everything is processed locally — no trackers, no analytics.

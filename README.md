@@ -1,6 +1,7 @@
 ### TimeSpy
 
 Android app that helps you monitor which apps you use, how often and for how long.
+
 It gives you insights into your daily app habits or helps with testing - all locally, without any trackers or analytics.
 
 
@@ -36,6 +37,9 @@ All processing happens **locally on your device**.
 
 The app uses standard Android APIs:
 - `PACKAGE_USAGE_STATS` - for collecting usage history
+```agsl
+    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" tools:ignore="ProtectedPermissions"/>
+```
 - Native Kotlin integration via Flutter MethodChannel
 
 ---
@@ -49,31 +53,3 @@ You can enable it manually:
 > Settings → Security → Usage Access → TimeSpy → Allow
 
 Or tap the in-app button to be redirected.
-
----
-
-### Download 
-
-You can download the latest official release build of the app, signed and ready for use, from F-Droid:
-
-1. Open the [F-Droid](https://f-droid.org/)
-2. Go to:
-   > Settings → Repositories → Add
-3. Paste the URL:
-   > https://Alpaca00.github.io/timespy-fdroid-repo/
-4. TimeSpy will appear after repo sync.
-
----
-
-### Building from Source
-
-#### Requirements:
-- Flutter SDK
-- Android SDK (API 34+)
-- NDK (optional)
-
-#### Build command:
-
-```bash
-flutter pub get
-flutter build apk --debug

@@ -1,0 +1,39 @@
+name: Build Android APK
+
+on:
+  workflow_call:
+    inputs:
+      flutter_version:
+        required: true
+        type: string
+    outputs:
+      apk_path:
+        description: "Path to the generated APK"
+        value: "build/app/outputs/flutter-apk/app-release.apk"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: ${{ inputs.flutter_version }}
+      - run: flutter --version
+
+      - name: Clean project
+        run: flutter clean
+
+      - name: Build APK
+        run: flutter build apk --release --dart-define=fdroidBuild=true
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: flutter-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
