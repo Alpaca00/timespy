@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:time_spy/models/app_info_ext.dart';
-import 'package:time_spy/ui/widgets/glass_card_widget.dart';
-import 'package:time_spy/ui/widgets/info_row_widget.dart';
+import 'package:time_spy/core/shared/data/models/app_info_ext.dart';
+import 'package:time_spy/core/shared/presentation/widgets/glass_card_widget.dart';
+import 'package:time_spy/core/shared/presentation/widgets/info_row_widget.dart';
 
 class ActivityTile extends StatelessWidget {
   final AppInfoExt app;
@@ -9,7 +9,8 @@ class ActivityTile extends StatelessWidget {
   final String Function(Duration) formatDuration;
   final String Function(DateTime) formatDateTime;
 
-  const ActivityTile({super.key, 
+  const ActivityTile({
+    super.key,
     required this.app,
     required this.isActive,
     required this.formatDuration,
@@ -24,7 +25,7 @@ class ActivityTile extends StatelessWidget {
         leading: app.icon != null
             ? Image.memory(app.icon!, width: 40, height: 40)
             : Icon(Icons.phone_android,
-            color: isActive ? Colors.white : Colors.grey),
+                color: isActive ? Colors.white : Colors.grey),
         title: Text(
           app.appName,
           style: TextStyle(

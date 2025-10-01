@@ -1,6 +1,7 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:time_spy/ui/pages/activity_page.dart';
+import 'package:time_spy/features/activity/presentation/pages/activity_page.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -9,7 +10,8 @@ class SplashPage extends StatefulWidget {
   State<SplashPage> createState() => _SplashPageState();
 }
 
-class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateMixin {
+class _SplashPageState extends State<SplashPage>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _fadeInAnimation;
 

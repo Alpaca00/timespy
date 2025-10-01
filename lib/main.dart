@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:time_spy/ui/pages/splash_page.dart';
+import 'package:time_spy/core/shared/presentation/pages/splash_page.dart';
 
-import 'ui/cubit/activity_cubit.dart';
+import 'features/activity/presentation/cubit/activity_cubit.dart';
 
 void main() {
   runApp(

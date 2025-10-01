@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ActivityAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const ActivityAppBar({super.key});
+class SharedAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const SharedAppBar({super.key});
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight + 16);

@@ -27,7 +27,8 @@ class UsagePermissionDialog extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.privacy_tip_rounded, size: 56, color: Colors.cyanAccent.withOpacity(0.85)),
+            Icon(Icons.privacy_tip_rounded,
+                size: 56, color: Colors.cyanAccent.withOpacity(0.85)),
             const SizedBox(height: 20),
             const Text(
               'Usage Permission Required',
@@ -60,11 +61,13 @@ class UsagePermissionDialog extends StatelessWidget {
                     style: OutlinedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 14),
                       side: BorderSide(color: Colors.white.withOpacity(0.3)),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12)),
                     ),
                     child: const Text(
                       'Cancel',
-                      style: TextStyle(color: Colors.white70, fontWeight: FontWeight.w500),
+                      style: TextStyle(
+                          color: Colors.white70, fontWeight: FontWeight.w500),
                     ),
                   ),
                 ),
@@ -78,7 +81,8 @@ class UsagePermissionDialog extends StatelessWidget {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.cyanAccent,
                       padding: const EdgeInsets.symmetric(vertical: 14),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12)),
                     ),
                     child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -87,7 +91,8 @@ class UsagePermissionDialog extends StatelessWidget {
                         SizedBox(width: 8),
                         Text(
                           'Open Settings',
-                          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              color: Colors.black, fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),

@@ -2,11 +2,11 @@ import 'package:flutter/services.dart';
 
 class UsagePermission {
   static const MethodChannel _channel =
-  MethodChannel('usage_permission_channel');
+      MethodChannel('usage_permission_channel');
 
   static Future<bool> isUsagePermissionGranted() async {
     final granted =
-    await _channel.invokeMethod<bool>('isUsagePermissionGranted');
+        await _channel.invokeMethod<bool>('isUsagePermissionGranted');
     return granted ?? false;
   }
 

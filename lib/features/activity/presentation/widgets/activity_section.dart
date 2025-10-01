@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:time_spy/models/app_info_ext.dart';
-import 'package:time_spy/ui/widgets/activity_list_tile.dart';
+import 'package:time_spy/core/shared/data/models/app_info_ext.dart';
+import 'package:time_spy/features/activity/presentation/widgets/activity_list_tile.dart';
 
 class ActivitySection extends StatelessWidget {
   final String title;
@@ -36,8 +36,7 @@ class ActivitySection extends StatelessWidget {
             ),
           ),
         ),
-        ...apps.map((app) =>
-            ActivityTile(
+        ...apps.map((app) => ActivityTile(
               app: app,
               isActive: isActive,
               formatDuration: formatDuration,
