@@ -1,2 +1,3 @@
 482f29b chore: fix stats
 a73b916a Fixed permission flow and state management
+22025412 chore: added Fastlane metadata and build actions, added condition for unsigned builds
