@@ -37,24 +37,20 @@ android {
 
     signingConfigs {
         release {
-            if (project.hasProperty('fdroidBuild')) {
-                //
-            } else if (keyPropertiesFile.exists()) {
+            if (keyPropertiesFile.exists()) {
                 keyAlias keystoreProperties['keyAlias']
                 keyPassword keystoreProperties['keyPassword']
                 storeFile file(keystoreProperties['storeFile'])
                 storePassword keystoreProperties['storePassword']
+            } else {
+                println("No keystore found, APK will not be signed")
             }
         }
     }
 
     buildTypes {
         release {
-            if (project.hasProperty('fdroidBuild')) {
-                signingConfig null
-            } else {
-                signingConfig signingConfigs.release
-            }
+            signingConfig keyPropertiesFile.exists() ? signingConfigs.release : null
             minifyEnabled false
             shrinkResources false
         }
